@@ -21,15 +21,28 @@ $(document).ready(function(){
 
     //Once
     $('iframe').each(function(i) {
-        //add name
-        $(this).attr('id', +(i+1));
-        //enable API js
-        //***********   falta si ya tiene ?  *************//
+        
+    
+
+        //verify if iframe from youtube
         var numsrc = $(this).attr('src');
-        var existe = numsrc.indexOf("?enablejsapi=1");
-        if(existe==-1){        
-            var res = numsrc.replace(numsrc, numsrc+"?enablejsapi=1");
-            $(this).attr('src', res);
+        var fromytb = numsrc.indexOf("youtube.com/");
+        if(fromytb!=-1){        
+            //add name
+            $(this).attr('id', +(i+1));
+             
+            //get if url with "?"
+            var existe = numsrc.indexOf("?");
+            //if not add ?
+            if(existe==-1){        
+                var res = numsrc.replace(numsrc, numsrc+"?enablejsapi=1");
+                $(this).attr('src', res);
+            }
+            //else add &
+            else{
+                var res = numsrc.replace(numsrc, numsrc+"&enablejsapi=1");
+                $(this).attr('src', res);
+            }
         }
     });
 
